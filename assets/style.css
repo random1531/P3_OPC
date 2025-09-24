@@ -107,6 +107,7 @@ section {
 }
 body {
 	line-height: 1;
+	
 }
 ol,
 ul {
@@ -133,6 +134,7 @@ body {
 	margin: auto;
 	font-family: "Work Sans";
 	font-size: 14px;
+	position: relative;
 }
 header {
 	display: flex;
@@ -360,4 +362,66 @@ footer nav ul {
 	align-items: center;
 	justify-content: center;
 	gap: 20px;
+}
+
+#modal{
+	position:fixed;
+	height: 100vh;
+	width: 100%;
+	background-color: #0000004D;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 10;
+}
+.modal{
+	display: flex;
+	width: 630px;
+height: 688px;
+border-radius: 10px;
+background: #FFFFFF;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+position: relative;
+}
+
+.modal h2{
+	font-family: Work Sans;
+font-weight: 400;
+font-style: Regular;
+font-size: 26px;
+leading-trim: NONE;
+line-height: 100%;
+letter-spacing: 0%;
+text-align: center;
+
+}
+
+
+.modalfigure{
+	width: 76px;
+ height: 102px;
+ position: relative;
+}
+.imgpre{
+
+	width: 76px;
+ height: 102px;
+ object-fit: cover;
+}
+
+.icons{
+	top: 3px;
+	right: 3px;
+	z-index: 1;
+}
+
+#modals{
+	position: relative;
+	justify-content: center;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	gap: 20px;
+	flex-wrap: wrap;
 }

@@ -54,6 +54,32 @@ async function getpictures() {
   return pictures;
 }
 
+function modalGallery(){
+  const modal = document.getElementById("modals");
+  const H2 = document.createElement("h2");
+
+
+  getpictures().then((pictures) => {
+    pictures.forEach((e)=>{
+      const figure = document.createElement("figure")
+      const img = document.createElement("img")
+      const i = document.createElement("i")
+
+      img.src = e.imageUrl;
+      img.alt = e.title;
+      i.className = "fa-solid fa-trash";
+      
+      figure.appendChild(i);
+      figure.appendChild(img);
+      modal.appendChild(figure);
+      figure.classList.add("modalfigure")
+      img.classList.add("imgpre")
+      i.classList.add("icons")
+    })
+  }
+)}
+modalGallery()
+
 function AllValueWork(categoriesId) {
   gallerySelect.innerHTML = "";
   getpictures().then((pictures) => {
