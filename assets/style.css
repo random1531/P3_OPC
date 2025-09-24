@@ -107,7 +107,6 @@ section {
 }
 body {
 	line-height: 1;
-	
 }
 ol,
 ul {
@@ -330,17 +329,16 @@ footer nav ul {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	flex-direction: column;	
+	flex-direction: column;
 }
 
 .loginBlock h1 {
-	color: #1D6154;
-	
+	color: #1d6154;
 }
 
 /*class for edit mod/*/
 
-.headerEdit{
+.headerEdit {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -349,79 +347,107 @@ footer nav ul {
 	color: white;
 }
 
-.headerEdit div{
+.headerEdit div {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	height: 59px;
-	gap : 10px;
+	gap: 10px;
 }
 
-#portofolioEdit{
+#portofolioEdit {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	gap: 20px;
 }
 
-#modal{
-	position:fixed;
+#modal {
+	position: fixed;
 	height: 100vh;
 	width: 100%;
-	background-color: #0000004D;
+	background-color: #0000004d;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	z-index: 10;
+	left: 0;
+	top: 0;
+	overflow: hidden;
 }
-.modal{
+#modals {
 	display: flex;
 	width: 630px;
-height: 688px;
-border-radius: 10px;
-background: #FFFFFF;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-position: relative;
+	height: 688px;
+	border-radius: 10px;
+	background: #ffffff;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	gap: 20px;
 }
 
-.modal h2{
+#modals h2 {
 	font-family: Work Sans;
-font-weight: 400;
-font-style: Regular;
-font-size: 26px;
-leading-trim: NONE;
-line-height: 100%;
-letter-spacing: 0%;
-text-align: center;
-
+	font-weight: 400;
+	font-style: Regular;
+	font-size: 26px;
+	line-height: 100%;
+	letter-spacing: 0%;
+	text-align: center;
 }
 
-
-.modalfigure{
+.modalfigure {
 	width: 76px;
- height: 102px;
- position: relative;
+	height: 102px;
+	position: relative;
 }
-.imgpre{
-
+.imgpre {
 	width: 76px;
- height: 102px;
- object-fit: cover;
+	height: 102px;
+	object-fit: cover;
 }
 
-.icons{
-	top: 3px;
+.icons {
+	display: flex;
+	position: absolute;
+	top: 5px;
 	right: 3px;
 	z-index: 1;
+	cursor: pointer;
 }
 
-#modalsgallery{
+#modalsgallery {
 	position: relative;
 	justify-content: center;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 	gap: 20px;
 	flex-wrap: wrap;
+}
+
+#exitCross {
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	font-size: 24px;
+	cursor: pointer;
+}
+
+.btnForm {
+	width: 237px;
+	height: 36px;
+	top: 1267px;
+	left: 600px;
+	opacity: 1;
+	border-radius: 60px;
+	background-color: #1d6154;
+	color: white;
+	border: none;
+}
+
+hr{
+	border: 1px solid #B3B3B3;
+	width: 75%;
 }
