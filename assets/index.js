@@ -55,7 +55,7 @@ async function getpictures() {
 }
 
 function modalGallery(){
-  const modal = document.getElementById("modals");
+  const modal = document.getElementById("modalsgallery");
   const H2 = document.createElement("h2");
 
 
