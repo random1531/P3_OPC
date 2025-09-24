@@ -2,6 +2,52 @@ const gallerySelect = document.querySelector(".gallery");
 const cate = document.querySelector(".categoriesblock");
 let active = 0;
 
+
+function changeConnectLogout(){
+  const textConect = document.getElementById("login");
+  localStorage.getItem("status");
+  if(localStorage.getItem("status") === "connected"){
+    textConect.textContent = "logout";
+    textConect.addEventListener("click", function(e){
+      e.preventDefault();
+      localStorage.removeItem("token");
+      localStorage.removeItem("status");
+      
+    })
+  }
+
+}
+changeConnectLogout()
+
+
+
+function addContentEditingMod(){
+  
+  localStorage.getItem("status");
+  if(localStorage.getItem("status") === "connected"){
+    const headEdit = document.getElementById("editingHeader");
+    headEdit.classList.add( "headerEdit");
+    const pEdit = document.createElement("p");
+    const div = document.createElement("div");
+    const pT = document.createElement("p");
+    const iP = document.createElement("i");
+    headEdit.appendChild(div);
+    div.appendChild(iP);
+    div.appendChild(pT);
+    pT.textContent =  "Mode édition";
+    iP.className = "fa-solid fa-pen-to-square";
+    const portofolioedit = document.getElementById("portofolioEdit");
+    portofolioedit.appendChild(iP);
+    portofolioedit.appendChild(pEdit);
+
+    pEdit.textContent = "Modifier";
+    
+
+  }
+}
+addContentEditingMod();
+
+
 async function getpictures() {
   const response = await fetch("http://localhost:5678/api/works");
   const pictures = await response.json();

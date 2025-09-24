@@ -192,7 +192,7 @@ li:hover {
 
 .categoriesblock {
 	display: flex;
-
+	margin-bottom: 1rem;
 	gap: 15px;
 	align-items: center;
 	justify-content: center;
@@ -336,3 +336,28 @@ footer nav ul {
 	
 }
 
+/*class for edit mod/*/
+
+.headerEdit{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 59px;
+	background-color: black;
+	color: white;
+}
+
+.headerEdit div{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 59px;
+	gap : 10px;
+}
+
+#portofolioEdit{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 20px;
+}
