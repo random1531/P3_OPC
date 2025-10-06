@@ -2,6 +2,14 @@ const gallerySelect = document.querySelector(".gallery");
 const cate = document.querySelector(".categoriesblock");
 const H2Title = document.getElementById("H2Title");
 const btnFC = document.getElementById("ChangeToForm");
+const cross = document.getElementById("exitCross");
+const btn = document.querySelectorAll(".fa-pen-to-square");
+const modalHover = document.getElementById("modal");
+const modalElement = document.getElementById("modals");
+const galleryOrmodal = document.getElementById("galleryOrModal");
+const GalleryElementModal = document.getElementById("modalsgallery");
+const arrowBack = document.getElementById("arrow");
+const ModalForm = document.getElementById("ModalForm");
 let active = 1;
 
 function changeConnectLogout() {
@@ -18,13 +26,13 @@ function changeConnectLogout() {
   }
 }
 changeConnectLogout();
-
+// Récupération des catégories
 async function catégorie() {
   const categories = await fetch("http://localhost:5678/api/categories");
   const cat = await categories.json();
   return cat;
 }
-
+// Ajout du mode édition
 function addContentEditingMod() {
   localStorage.getItem("status");
   if (localStorage.getItem("status") === "connected") {
@@ -47,16 +55,106 @@ function addContentEditingMod() {
 }
 addContentEditingMod();
 
+function checkFormEmpty() {
+  const inputcate = document.getElementById("categorie");
+  const inputeTitle = document.getElementById("title");
+  const btnFormConfirm = document.getElementById("btnFormConfirm");
+  inputeTitle.addEventListener("input", function (e) {
+    if (e.target.value != "") {
+      btnFormConfirm.disabled = false;
+    } else {
+      btnFormConfirm.disabled = true;
+    }
+  });
+}
+
+function closeModal() {
+  /**Fermeture de la modal**/
+  cross.addEventListener("click", function () {
+    modalHover.classList.remove("visible");
+    modalHover.classList.add("hidden");
+    modalElement.classList.remove("visible");
+    modalElement.classList.add("hidden");
+    ModalForm.classList.add("hidden");
+    arrowBack.classList.add("hidden");
+    arrowBack.classList.remove("visible");
+    btnFC.classList.remove("hidden");
+    btnFC.classList.add("visible");
+    btnFormConfirm.classList.remove("visible");
+    btnFormConfirm.classList.add("hidden");
+    GalleryElementModal.innerHTML = "";
+
+    AllValueWork(0);
+  });
+}
+
+function backTogallery() {
+  arrowBack.addEventListener("click", function () {
+    arrowBack.classList.add("hidden");
+    arrowBack.classList.remove("visible");
+    ModalForm.classList.add("hidden");
+    ModalForm.classList.remove("visible");
+    GalleryElementModal.classList.remove("hidden");
+    GalleryElementModal.classList.add("visibleGrid");
+    btnFC.classList.remove("hidden");
+    btnFC.classList.add("visible");
+    btnFormConfirm.classList.remove("visible");
+    btnFormConfirm.classList.add("hidden");
+    btnFormConfirm.removeEventListener("click", SendNewWork);
+  });
+}
+
+async function SendNewWork() {
+  const inputImage = document.getElementById("pictureForm");
+  const picturechange = document.getElementById("pictureAdded");
+  const formAddPic = document.getElementById("labelAddPicture");
+  inputImage.addEventListener("change", function () {
+    if (inputImage.files[0]) {
+      picturechange.classList.remove("hidden");
+      picturechange.classList.add("pictureForm");
+      formAddPic.classList.remove("labelAddPicture");
+      formAddPic.classList.add("hidden");
+      picturechange.src = URL.createObjectURL(inputImage.files[0]);
+    }
+  });
+  const inputcate = document.getElementById("categorie").value;
+  const inputeTitle = document.getElementById("title").value;
+  console.log("couc");
+  const image = inputImage.files[0];
+  const formData = new FormData();
+  formData.append("title", inputeTitle);
+  formData.append("category", inputcate);
+  formData.append("image", image);
+  const response = await fetch("http://localhost:5678/api/works", {
+    method: "POST",
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+    body: formData,
+  });
+  if (response.ok) {
+    arrowBack.classList.add("hidden");
+    arrowBack.classList.remove("visible");
+    ModalForm.classList.add("hidden");
+    ModalForm.classList.remove("visible");
+    GalleryElementModal.classList.remove("hidden");
+    GalleryElementModal.classList.add("visibleGrid");
+    btnFC.classList.remove("hidden");
+    btnFC.classList.add("visible");
+    btnFormConfirm.classList.remove("visible");
+    btnFormConfirm.classList.add("hidden");
+    picturechange.classList.remove("pictureForm");
+    picturechange.classList.add("hidden");
+    formAddPic.classList.remove("hidden");
+    formAddPic.classList.add("labelAddPicture");
+    GalleryElementModal.innerHTML = "";
+    modalGallery();
+  }
+}
+
 /**Modal**/
 function modalOpenClose() {
   const btn = document.querySelectorAll(".fa-pen-to-square");
-  const cross = document.getElementById("exitCross");
-  const modalHover = document.getElementById("modal");
-  const modalElement = document.getElementById("modals");
-  const galleryOrmodal = document.getElementById("galleryOrModal");
-  const GalleryElementModal = document.getElementById("modalsgallery");
-  const arrowBack = document.getElementById("arrow");
-  const ModalForm = document.getElementById("ModalForm");
 
   /**Création de la modal avec la gallery**/
   btn.forEach((e) => {
@@ -71,102 +169,30 @@ function modalOpenClose() {
       modalElement.classList.add("visible");
       galleryOrmodal.appendChild(GalleryElementModal);
       GalleryElementModal.classList.add("visibleGrid");
+      GalleryElementModal.innerHTML = "";
       modalGallery();
-
-      /**Fermeture de la modal**/
-      cross.addEventListener("click", function () {
-        modalHover.classList.remove("visible");
-        modalHover.classList.add("hidden");
-        modalElement.classList.remove("visible");
-        modalElement.classList.add("hidden");
-        ModalForm.classList.add("hidden");
-        arrowBack.classList.add("hidden");
-        arrowBack.classList.remove("visible");
-        btnFC.classList.remove("hidden");
-        btnFC.classList.add("visible");
-        btnFormConfirm.classList.remove("visible");
-        btnFormConfirm.classList.add("hidden");
-        GalleryElementModal.innerHTML = "";
-      });
-
-      /** Bascule vers le formulaire */
-
-      btnFC.addEventListener("click", function () {        
-        const btnFormConfirm = document.getElementById("btnFormConfirm");
-        GalleryElementModal.classList.remove("visibleGrid");
-        GalleryElementModal.classList.add("hidden");
-        ModalForm.classList.add("visible");
-        ModalForm.classList.remove("hidden");
-        arrowBack.classList.add("visible");
-        arrowBack.classList.remove("hidden");
-        btnFC.classList.remove("visible");
-        btnFC.classList.add("hidden");
-        btnFormConfirm.classList.remove("hidden");
-        btnFormConfirm.classList.add("visible");
-        const inputImage = document.getElementById("pictureForm");
-        const picturechange = document.getElementById("pictureAdded");
-        const formAddPic = document.getElementById("labelAddPicture");
-        inputImage.addEventListener("change", function () {
-          if (inputImage.files[0]) {
-            picturechange.classList.remove("hidden");
-            picturechange.classList.add("pictureForm");
-            formAddPic.classList.remove("labelAddPicture");
-            formAddPic.classList.add("hidden");
-            picturechange.src = URL.createObjectURL(inputImage.files[0]);
-          }
-        });
-
-        /** Ajout d'un nouvelle élément **/
-        btnFormConfirm.addEventListener("click", async function () {
-          const inputcate = document.getElementById("categorie").value;
-          const inputeTitle = document.getElementById("title").value;
-
-          const image = inputImage.files[0];
-          const formData = new FormData();
-          formData.append("title", inputeTitle);
-          formData.append("category", inputcate);
-          formData.append("image", image);
-          const response = await fetch("http://localhost:5678/api/works", {
-            method: "POST",
-            headers: {
-              Authorization: "Bearer " + localStorage.getItem("token"),
-            },
-            body: formData,
-          });
-          if (response.ok) {
-            arrowBack.classList.add("hidden");
-            arrowBack.classList.remove("visible");
-            ModalForm.classList.add("hidden");
-            ModalForm.classList.remove("visible");
-            GalleryElementModal.classList.remove("hidden");
-            GalleryElementModal.classList.add("visibleGrid");
-            btnFC.classList.remove("hidden");
-            btnFC.classList.add("visible");
-            btnFormConfirm.classList.remove("visible");
-            btnFormConfirm.classList.add("hidden");
-            picturechange.classList.remove("pictureForm");
-            picturechange.classList.add("hidden");
-            formAddPic.classList.remove("hidden");
-            formAddPic.classList.add("labelAddPicture");
-            GalleryElementModal.innerHTML = "";
-            modalGallery();
-          }
-        });
-      });
-
-      arrowBack.addEventListener("click", function () {
-        arrowBack.classList.add("hidden");
-        arrowBack.classList.remove("visible");
-        ModalForm.classList.add("hidden");
-        ModalForm.classList.remove("visible");
-        GalleryElementModal.classList.remove("hidden");
-        GalleryElementModal.classList.add("visibleGrid");
-        btnFC.classList.remove("hidden");
-        btnFC.classList.add("visible");
-        btnFormConfirm.classList.remove("visible");
-        btnFormConfirm.classList.add("hidden");
-      });
     });
+    closeModal();
+
+    /** Bascule vers le formulaire */
+
+    btnFC.addEventListener("click", function () {
+      const btnFormConfirm = document.getElementById("btnFormConfirm");
+      GalleryElementModal.classList.remove("visibleGrid");
+      GalleryElementModal.classList.add("hidden");
+      ModalForm.classList.add("visible");
+      ModalForm.classList.remove("hidden");
+      arrowBack.classList.add("visible");
+      arrowBack.classList.remove("hidden");
+      btnFC.classList.remove("visible");
+      btnFC.classList.add("hidden");
+      btnFormConfirm.classList.remove("hidden");
+      btnFormConfirm.classList.add("visible");
+
+      /** Ajout d'un nouvelle élément **/
+      btnFormConfirm.addEventListener("click", SendNewWork);
+    });
+    backTogallery();
   });
 }
 modalOpenClose();
@@ -209,7 +235,11 @@ function modalGallery() {
   });
 }
 
-modalForm();
+if (localStorage.getItem("status") === "connected") {
+  modalForm();
+  checkFormEmpty();
+}
+
 /** FormModal **/
 function modalForm() {
   const ModalForm = document.getElementById("ModalForm");
@@ -255,6 +285,7 @@ function modalForm() {
   ModalForm.appendChild(inputTitle);
   ModalForm.appendChild(labelCatégorie);
   ModalForm.appendChild(inputCatégorie);
+  labelTitle.textContent = "Title";
   inputTitle.name = "title";
   inputTitle.id = "title";
   inputCatégorie.name = "categorie";
@@ -306,7 +337,11 @@ function login() {
   const log = document.getElementById("login");
   log.addEventListener("click", function (e) {
     e.preventDefault();
-    window.location.href = "./assets/login.html";
+    if (log.textContent === "logout") {
+      window.location.href = "./index.html";
+    } else {
+      window.location.href = "./assets/login.html";
+    }
   });
 }
 login();
