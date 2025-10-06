@@ -384,6 +384,7 @@ footer nav ul {
 	justify-content: center;
 	position: relative;
 	gap: 20px;
+	padding: 40px;
 }
 
 #modals h2 {
@@ -453,6 +454,7 @@ hr {
 
 #ModalForm {
 	flex-direction: column;
+	gap: 15px;
 }
 
 #ModalForm input,
@@ -462,13 +464,14 @@ select {
 	height: 51px;
 	top: 1011px;
 	left: 510px;
-	font-family: Work Sans;
+	
 	font-weight: 400;
 	font-size: 14px;
 	line-height: 100%;
 	box-sizing: border-box;
 	border: none;
 	box-shadow: 0px 4px 14px 0px #00000017;
+	padding: 15px;
 }
 
 .visible {
@@ -535,7 +538,16 @@ select {
 
 .pictureForm{	
 	object-fit: cover;
-	max-height: 193px ;
+	max-height: 169px ;
 	max-width: 130px;
 	box-sizing: border-box;
+}
+
+.fa-solid{
+	cursor: pointer;
+}
+
+#galleryOrModal{
+	overflow: hidden;
+	max-height: 70%;
 }

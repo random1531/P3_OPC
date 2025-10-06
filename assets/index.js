@@ -23,15 +23,19 @@ function changeConnectLogout() {
       localStorage.removeItem("status");
       window.location.href = "./index.html";
     });
+  } else {
+    window.location.href = "./assets/login.html";
   }
 }
 changeConnectLogout();
+
 // Récupération des catégories
 async function catégorie() {
   const categories = await fetch("http://localhost:5678/api/categories");
   const cat = await categories.json();
   return cat;
 }
+
 // Ajout du mode édition
 function addContentEditingMod() {
   localStorage.getItem("status");
@@ -41,12 +45,14 @@ function addContentEditingMod() {
     const pEdit = document.createElement("p");
     const div = document.createElement("div");
     const pT = document.createElement("p");
+    const iP1 = document.createElement("i");
     const iP = document.createElement("i");
     headEdit.appendChild(div);
-    div.appendChild(iP);
+    div.appendChild(iP1);
     div.appendChild(pT);
     pT.textContent = "Mode édition";
-    iP.className = "fa-solid fa-pen-to-square";
+    iP1.classList.add("fa-solid", "fa-pen-to-square");
+    iP.classList.add("fa-solid", "fa-pen-to-square");
     const portofolioedit = document.getElementById("portofolioEdit");
     portofolioedit.appendChild(iP);
     portofolioedit.appendChild(pEdit);
@@ -71,40 +77,18 @@ function checkFormEmpty() {
 function closeModal() {
   /**Fermeture de la modal**/
   cross.addEventListener("click", function () {
-    modalHover.classList.remove("visible");
-    modalHover.classList.add("hidden");
-    modalElement.classList.remove("visible");
-    modalElement.classList.add("hidden");
-    ModalForm.classList.add("hidden");
-    arrowBack.classList.add("hidden");
-    arrowBack.classList.remove("visible");
+    [modalHover, modalElement, ModalForm, arrowBack].forEach(e => e.classList.add("hidden"));
+    [modalElement, modalHover, arrowBack, btnFormConfirm].forEach(e => e.classList.remove("visible"));
     btnFC.classList.remove("hidden");
     btnFC.classList.add("visible");
-    btnFormConfirm.classList.remove("visible");
     btnFormConfirm.classList.add("hidden");
     GalleryElementModal.innerHTML = "";
-
+    document.getElementById("ModalForm").reset()
     AllValueWork(0);
   });
 }
 
-function backTogallery() {
-  arrowBack.addEventListener("click", function () {
-    arrowBack.classList.add("hidden");
-    arrowBack.classList.remove("visible");
-    ModalForm.classList.add("hidden");
-    ModalForm.classList.remove("visible");
-    GalleryElementModal.classList.remove("hidden");
-    GalleryElementModal.classList.add("visibleGrid");
-    btnFC.classList.remove("hidden");
-    btnFC.classList.add("visible");
-    btnFormConfirm.classList.remove("visible");
-    btnFormConfirm.classList.add("hidden");
-    btnFormConfirm.removeEventListener("click", SendNewWork);
-  });
-}
-
-async function SendNewWork() {
+function checkPictureChange() {
   const inputImage = document.getElementById("pictureForm");
   const picturechange = document.getElementById("pictureAdded");
   const formAddPic = document.getElementById("labelAddPicture");
@@ -117,6 +101,31 @@ async function SendNewWork() {
       picturechange.src = URL.createObjectURL(inputImage.files[0]);
     }
   });
+}
+
+
+
+
+
+function backTogallery() {
+  arrowBack.addEventListener("click", function () {
+    [ModalForm, arrowBack, btnFormConfirm].forEach(e => e.classList.add("hidden"));
+    [ModalForm, arrowBack, btnFormConfirm].forEach(e => e.classList.remove("visible"));
+    document.getElementById("ModalForm").reset()
+    GalleryElementModal.classList.remove("hidden");
+    btnFC.classList.remove("hidden");
+    GalleryElementModal.classList.add("visibleGrid");
+    btnFC.classList.add("visible");
+    btnFormConfirm.removeEventListener("click", SendNewWork);
+    H2Title.textContent = "Galerie photo";
+  });
+
+}
+
+async function SendNewWork() {
+  const inputImage = document.getElementById("pictureForm");
+  const picturechange = document.getElementById("pictureAdded");
+  const formAddPic = document.getElementById("labelAddPicture");
   const inputcate = document.getElementById("categorie").value;
   const inputeTitle = document.getElementById("title").value;
   console.log("couc");
@@ -133,21 +142,16 @@ async function SendNewWork() {
     body: formData,
   });
   if (response.ok) {
-    arrowBack.classList.add("hidden");
-    arrowBack.classList.remove("visible");
-    ModalForm.classList.add("hidden");
-    ModalForm.classList.remove("visible");
-    GalleryElementModal.classList.remove("hidden");
-    GalleryElementModal.classList.add("visibleGrid");
-    btnFC.classList.remove("hidden");
+    [arrowBack, ModalForm, btnFormConfirm, picturechange].forEach(e => e.classList.add("hidden"));
+    [arrowBack, ModalForm, btnFormConfirm].forEach(e => e.classList.remove("visible"));
+    [formAddPic, btnFC, GalleryElementModal].forEach(e => e.classList.remove("hidden"));
     btnFC.classList.add("visible");
-    btnFormConfirm.classList.remove("visible");
-    btnFormConfirm.classList.add("hidden");
+    GalleryElementModal.classList.add("visibleGrid");
     picturechange.classList.remove("pictureForm");
-    picturechange.classList.add("hidden");
-    formAddPic.classList.remove("hidden");
     formAddPic.classList.add("labelAddPicture");
     GalleryElementModal.innerHTML = "";
+    document.getElementById("ModalForm").reset()
+
     modalGallery();
   }
 }
@@ -159,14 +163,11 @@ function modalOpenClose() {
   /**Création de la modal avec la gallery**/
   btn.forEach((e) => {
     e.addEventListener("click", function () {
-      cross.classList.remove("hidden");
-      cross.classList.add("visible");
-      H2Title.textContent = "Galerie photo";
-      modalHover.classList.remove("hidden");
-      modalHover.classList.add("visible");
+
       modalHover.appendChild(modalElement);
-      modalElement.classList.remove("hidden");
-      modalElement.classList.add("visible");
+      [cross, modalHover, modalElement].forEach(e => e.classList.add("visible"));
+      [cross, modalHover, modalElement].forEach(e => e.classList.remove("hidden"));
+      H2Title.textContent = "Galerie photo";
       galleryOrmodal.appendChild(GalleryElementModal);
       GalleryElementModal.classList.add("visibleGrid");
       GalleryElementModal.innerHTML = "";
@@ -179,16 +180,12 @@ function modalOpenClose() {
     btnFC.addEventListener("click", function () {
       const btnFormConfirm = document.getElementById("btnFormConfirm");
       GalleryElementModal.classList.remove("visibleGrid");
-      GalleryElementModal.classList.add("hidden");
-      ModalForm.classList.add("visible");
-      ModalForm.classList.remove("hidden");
-      arrowBack.classList.add("visible");
-      arrowBack.classList.remove("hidden");
+      [ModalForm, arrowBack, btnFormConfirm].forEach(e => e.classList.add("visible"));
+      [ModalForm, arrowBack, btnFormConfirm].forEach(e => e.classList.remove("hidden"));
       btnFC.classList.remove("visible");
+      H2Title.textContent ="Ajout photo"
+      GalleryElementModal.classList.add("hidden");
       btnFC.classList.add("hidden");
-      btnFormConfirm.classList.remove("hidden");
-      btnFormConfirm.classList.add("visible");
-
       /** Ajout d'un nouvelle élément **/
       btnFormConfirm.addEventListener("click", SendNewWork);
     });
@@ -200,7 +197,7 @@ modalOpenClose();
 /*GalleryModal*/
 function modalGallery() {
   const modal = document.getElementById("modalsgallery");
-
+  H2Title.textContent = "Galerie photo";
   getpictures().then((pictures) => {
     pictures.forEach((e) => {
       const figure = document.createElement("figure");
@@ -240,10 +237,13 @@ if (localStorage.getItem("status") === "connected") {
   checkFormEmpty();
 }
 
+function ElementForm() {
+
+}
+
+
 /** FormModal **/
 function modalForm() {
-  const ModalForm = document.getElementById("ModalForm");
-  const GalleryElementModal = document.getElementById("modalsgallery");
   const img = document.createElement("img");
   const divimgfile = document.createElement("div");
   const inputTitle = document.createElement("input");
@@ -257,34 +257,21 @@ function modalForm() {
   const pLabelForm = document.createElement("span");
   const pScondeLabelForm = document.createElement("p");
   H2Title.textContent = "Ajout photo";
-  ModalForm.classList.add("hidden");
-  GalleryElementModal.classList.add("hidden");
-  pictureForm.type = "file";
-  pictureForm.accept = "image/*";
-  pictureForm.textContent = "jpg, png : 4mo max";
-  pictureForm.style.display = "none";
-  pictureForm.id = "pictureForm";
-  labelPicture.htmlFor = "pictureForm";
 
-  ModalForm.appendChild(pictureForm);
-  ModalForm.appendChild(divimgfile);
+  Object.assign(pictureForm,{id:"pictureForm",type : "file", accept:"image/*",textContent:"jpg, png : 4mo max"});
+  pictureForm.style.display = "none";
+  labelPicture.htmlFor = "pictureForm";
+  ModalForm.append(pictureForm, divimgfile, labelTitle, inputTitle, labelCatégorie, inputCatégorie);
   divimgfile.appendChild(labelPicture);
   divimgfile.appendChild(img);
-  img.classList.add("hidden");
   img.setAttribute("id", "pictureAdded");
-
-  labelPicture.appendChild(iLabelForm);
-  labelPicture.appendChild(pLabelForm);
-  labelPicture.appendChild(pScondeLabelForm);
+  [ModalForm, GalleryElementModal, img].forEach(e => e.classList.add("hidden"))
+  labelPicture.append(iLabelForm, pLabelForm, pScondeLabelForm);
   divimgfile.classList.add("labelAddPicture");
   labelPicture.setAttribute("id", "labelAddPicture");
   iLabelForm.classList.add("fa-image", "fa-regular");
   pLabelForm.textContent = "+ Ajouter photo";
   pScondeLabelForm.textContent = "jpg, png : 4mo max";
-  ModalForm.appendChild(labelTitle);
-  ModalForm.appendChild(inputTitle);
-  ModalForm.appendChild(labelCatégorie);
-  ModalForm.appendChild(inputCatégorie);
   labelTitle.textContent = "Title";
   inputTitle.name = "title";
   inputTitle.id = "title";
@@ -294,6 +281,7 @@ function modalForm() {
   inputCatégorie.appendChild(optionCatégorie);
   optionCatégorie.value = "";
   optionCatégorie.textContent = "";
+  checkPictureChange();
   catégorie().then((categories) => {
     categories.forEach((ee) => {
       const optionCatégorie = document.createElement("option");
@@ -333,18 +321,7 @@ function AllValueWork(categoriesId) {
 }
 AllValueWork(0);
 
-function login() {
-  const log = document.getElementById("login");
-  log.addEventListener("click", function (e) {
-    e.preventDefault();
-    if (log.textContent === "logout") {
-      window.location.href = "./index.html";
-    } else {
-      window.location.href = "./assets/login.html";
-    }
-  });
-}
-login();
+
 
 /***Ajout des button filtre*/
 function CatégoriAddDom() {
@@ -359,6 +336,8 @@ function CatégoriAddDom() {
   });
 }
 CatégoriAddDom();
+
+
 /*Selection du filtre*/
 function selectedfilter() {
   const buttons = document.querySelectorAll(".categoriesblock p");
