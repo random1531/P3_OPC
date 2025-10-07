@@ -10,6 +10,7 @@ const galleryOrmodal = document.getElementById("galleryOrModal");
 const GalleryElementModal = document.getElementById("modalsgallery");
 const arrowBack = document.getElementById("arrow");
 const ModalForm = document.getElementById("ModalForm");
+const btnFormConfirm = document.getElementById("btnFormConfirm");
 let active = 1;
 
 function changeConnectLogout() {
@@ -64,14 +65,14 @@ addContentEditingMod();
 function checkFormEmpty() {
   const inputcate = document.getElementById("categorie");
   const inputeTitle = document.getElementById("title");
-  const btnFormConfirm = document.getElementById("btnFormConfirm");
-  inputeTitle.addEventListener("input", function (e) {
-    if (e.target.value != "") {
-      btnFormConfirm.disabled = false;
-    } else {
-      btnFormConfirm.disabled = true;
-    }
-  });
+  
+  function checkIfOk(){
+    const inputOk = inputeTitle.value != "" && inputcate.value !=Number();
+    btnFormConfirm.disabled = !inputOk;
+  }
+  inputeTitle.addEventListener("input", checkIfOk);
+  inputcate.addEventListener("input",checkIfOk);
+  
 }
 
 function closeModal() {

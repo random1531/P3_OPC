@@ -3,6 +3,7 @@ const btnlog = document.getElementById("btnlog");
 btnlog.addEventListener("click", async function (e) {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
+  const errormsg = document.getElementById("errorMsg");
   e.preventDefault();
   const response = await fetch("http://localhost:5678/api/users/login", {
     method: "POST",
@@ -19,6 +20,6 @@ btnlog.addEventListener("click", async function (e) {
     localStorage.setItem("status", "connected");
     window.location.href = "../index.html";
   } else {
-    console.log("error");
+    errormsg.textContent = "Erreur dans l’identifiant ou le mot de passe";
   }
 });
