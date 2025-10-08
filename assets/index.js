@@ -23,6 +23,8 @@ function changeConnectLogout() {
       localStorage.removeItem("token");
       localStorage.removeItem("status");
       window.location.href = "./index.html";
+      modalForm();
+  checkFormEmpty();
     });
   } else {
     window.location.href = "./assets/login.html";
@@ -62,6 +64,9 @@ function addContentEditingMod() {
 }
 addContentEditingMod();
 
+
+
+// Vérification du formulaire
 function checkFormEmpty() {
   const inputcate = document.getElementById("categorie");
   const inputeTitle = document.getElementById("title");
@@ -75,8 +80,8 @@ function checkFormEmpty() {
   
 }
 
+/**Fermeture de la modal**/
 function closeModal() {
-  /**Fermeture de la modal**/
   cross.addEventListener("click", function () {
     [modalHover, modalElement, ModalForm, arrowBack].forEach(e => e.classList.add("hidden"));
     [modalElement, modalHover, arrowBack, btnFormConfirm].forEach(e => e.classList.remove("visible"));
@@ -103,9 +108,6 @@ function checkPictureChange() {
     }
   });
 }
-
-
-
 
 
 function backTogallery() {
@@ -233,16 +235,6 @@ function modalGallery() {
   });
 }
 
-if (localStorage.getItem("status") === "connected") {
-  modalForm();
-  checkFormEmpty();
-}
-
-function ElementForm() {
-
-}
-
-
 /** FormModal **/
 function modalForm() {
   const img = document.createElement("img");
@@ -258,7 +250,6 @@ function modalForm() {
   const pLabelForm = document.createElement("span");
   const pScondeLabelForm = document.createElement("p");
   H2Title.textContent = "Ajout photo";
-
   Object.assign(pictureForm,{id:"pictureForm",type : "file", accept:"image/*",textContent:"jpg, png : 4mo max"});
   pictureForm.style.display = "none";
   labelPicture.htmlFor = "pictureForm";
