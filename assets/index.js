@@ -17,17 +17,22 @@ function changeConnectLogout() {
   const textConect = document.getElementById("login");
   localStorage.getItem("status");
   if (localStorage.getItem("status") === "connected") {
+    modalForm();
+    checkFormEmpty();
     textConect.textContent = "logout";
     textConect.addEventListener("click", function (e) {
       e.preventDefault();
       localStorage.removeItem("token");
       localStorage.removeItem("status");
       window.location.href = "./index.html";
-      modalForm();
-  checkFormEmpty();
+
     });
   } else {
-    window.location.href = "./assets/login.html";
+    textConect.addEventListener("click", function () {
+
+      window.location.href = "./assets/login.html";
+    })
+
   }
 }
 changeConnectLogout();
@@ -70,14 +75,14 @@ addContentEditingMod();
 function checkFormEmpty() {
   const inputcate = document.getElementById("categorie");
   const inputeTitle = document.getElementById("title");
-  
-  function checkIfOk(){
-    const inputOk = inputeTitle.value != "" && inputcate.value !=Number();
+
+  function checkIfOk() {
+    const inputOk = inputeTitle.value != "" && inputcate.value != Number();
     btnFormConfirm.disabled = !inputOk;
   }
   inputeTitle.addEventListener("input", checkIfOk);
-  inputcate.addEventListener("input",checkIfOk);
-  
+  inputcate.addEventListener("input", checkIfOk);
+
 }
 
 /**Fermeture de la modal**/
@@ -186,7 +191,7 @@ function modalOpenClose() {
       [ModalForm, arrowBack, btnFormConfirm].forEach(e => e.classList.add("visible"));
       [ModalForm, arrowBack, btnFormConfirm].forEach(e => e.classList.remove("hidden"));
       btnFC.classList.remove("visible");
-      H2Title.textContent ="Ajout photo"
+      H2Title.textContent = "Ajout photo"
       GalleryElementModal.classList.add("hidden");
       btnFC.classList.add("hidden");
       /** Ajout d'un nouvelle élément **/
@@ -250,7 +255,7 @@ function modalForm() {
   const pLabelForm = document.createElement("span");
   const pScondeLabelForm = document.createElement("p");
   H2Title.textContent = "Ajout photo";
-  Object.assign(pictureForm,{id:"pictureForm",type : "file", accept:"image/*",textContent:"jpg, png : 4mo max"});
+  Object.assign(pictureForm, { id: "pictureForm", type: "file", accept: "image/*", textContent: "jpg, png : 4mo max" });
   pictureForm.style.display = "none";
   labelPicture.htmlFor = "pictureForm";
   ModalForm.append(pictureForm, divimgfile, labelTitle, inputTitle, labelCatégorie, inputCatégorie);
@@ -283,8 +288,12 @@ function modalForm() {
       inputCatégorie.appendChild(optionCatégorie);
     });
   });
+
 }
 
+if (localStorage.getItem("status") === "connected") {
+
+}
 /** Obtenir tous les travaux **/
 async function getpictures() {
   const response = await fetch("http://localhost:5678/api/works");
