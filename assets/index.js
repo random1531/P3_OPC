@@ -29,7 +29,7 @@ function changeConnectLogout() {
   } else {
     textConect.addEventListener("click", function () {
       window.location.href = "./assets/login.html";
-    })
+    });
   }
 }
 changeConnectLogout();
@@ -80,13 +80,17 @@ function checkFormEmpty() {
 /**Fermeture de la modal**/
 function closeModal() {
   cross.addEventListener("click", function () {
-    [modalHover, modalElement, ModalForm, arrowBack].forEach(e => e.classList.add("hidden"));
-    [modalElement, modalHover, arrowBack, btnFormConfirm].forEach(e => e.classList.remove("visible"));
+    [modalHover, modalElement, ModalForm, arrowBack].forEach((e) =>
+      e.classList.add("hidden")
+    );
+    [modalElement, modalHover, arrowBack, btnFormConfirm].forEach((e) =>
+      e.classList.remove("visible")
+    );
     btnFC.classList.remove("hidden");
     btnFC.classList.add("visible");
     btnFormConfirm.classList.add("hidden");
     GalleryElementModal.innerHTML = "";
-    document.getElementById("ModalForm").reset()
+    document.getElementById("ModalForm").reset();
     AllValueWork(0);
   });
 }
@@ -105,12 +109,15 @@ function checkPictureChange() {
   });
 }
 
-
 function backTogallery() {
   arrowBack.addEventListener("click", function () {
-    [ModalForm, arrowBack, btnFormConfirm].forEach(e => e.classList.add("hidden"));
-    [ModalForm, arrowBack, btnFormConfirm].forEach(e => e.classList.remove("visible"));
-    document.getElementById("ModalForm").reset()
+    [ModalForm, arrowBack, btnFormConfirm].forEach((e) =>
+      e.classList.add("hidden")
+    );
+    [ModalForm, arrowBack, btnFormConfirm].forEach((e) =>
+      e.classList.remove("visible")
+    );
+    document.getElementById("ModalForm").reset();
     GalleryElementModal.classList.remove("hidden");
     btnFC.classList.remove("hidden");
     GalleryElementModal.classList.add("visibleGrid");
@@ -118,15 +125,15 @@ function backTogallery() {
     btnFormConfirm.removeEventListener("click", SendNewWork);
     H2Title.textContent = "Galerie photo";
   });
-
 }
+
+
 async function SendNewWork() {
   const inputImage = document.getElementById("pictureForm");
   const picturechange = document.getElementById("pictureAdded");
   const formAddPic = document.getElementById("labelAddPicture");
   const inputcate = document.getElementById("categorie").value;
   const inputeTitle = document.getElementById("title").value;
-  console.log("couc");
   const image = inputImage.files[0];
   const formData = new FormData();
   formData.append("title", inputeTitle);
@@ -140,15 +147,21 @@ async function SendNewWork() {
     body: formData,
   });
   if (response.ok) {
-    [arrowBack, ModalForm, btnFormConfirm, picturechange].forEach(e => e.classList.add("hidden"));
-    [arrowBack, ModalForm, btnFormConfirm].forEach(e => e.classList.remove("visible"));
-    [formAddPic, btnFC, GalleryElementModal].forEach(e => e.classList.remove("hidden"));
+    [arrowBack, ModalForm, btnFormConfirm, picturechange].forEach((e) =>
+      e.classList.add("hidden")
+    );
+    [arrowBack, ModalForm, btnFormConfirm].forEach((e) =>
+      e.classList.remove("visible")
+    );
+    [formAddPic, btnFC, GalleryElementModal].forEach((e) =>
+      e.classList.remove("hidden")
+    );
     btnFC.classList.add("visible");
     GalleryElementModal.classList.add("visibleGrid");
     picturechange.classList.remove("pictureForm");
     formAddPic.classList.add("labelAddPicture");
     GalleryElementModal.innerHTML = "";
-    document.getElementById("ModalForm").reset()
+    document.getElementById("ModalForm").reset();
 
     modalGallery();
   }
@@ -160,10 +173,13 @@ function modalOpenClose() {
   /**Création de la modal avec la gallery**/
   btn.forEach((e) => {
     e.addEventListener("click", function () {
-
       modalHover.appendChild(modalElement);
-      [cross, modalHover, modalElement].forEach(e => e.classList.add("visible"));
-      [cross, modalHover, modalElement].forEach(e => e.classList.remove("hidden"));
+      [cross, modalHover, modalElement].forEach((e) =>
+        e.classList.add("visible")
+      );
+      [cross, modalHover, modalElement].forEach((e) =>
+        e.classList.remove("hidden")
+      );
       H2Title.textContent = "Galerie photo";
       galleryOrmodal.appendChild(GalleryElementModal);
       GalleryElementModal.classList.add("visibleGrid");
@@ -177,10 +193,14 @@ function modalOpenClose() {
     btnFC.addEventListener("click", function () {
       const btnFormConfirm = document.getElementById("btnFormConfirm");
       GalleryElementModal.classList.remove("visibleGrid");
-      [ModalForm, arrowBack, btnFormConfirm].forEach(e => e.classList.add("visible"));
-      [ModalForm, arrowBack, btnFormConfirm].forEach(e => e.classList.remove("hidden"));
+      [ModalForm, arrowBack, btnFormConfirm].forEach((e) =>
+        e.classList.add("visible")
+      );
+      [ModalForm, arrowBack, btnFormConfirm].forEach((e) =>
+        e.classList.remove("hidden")
+      );
       btnFC.classList.remove("visible");
-      H2Title.textContent = "Ajout photo"
+      H2Title.textContent = "Ajout photo";
       GalleryElementModal.classList.add("hidden");
       btnFC.classList.add("hidden");
       /** Ajout d'un nouvelle élément **/
@@ -213,7 +233,6 @@ function modalGallery() {
       i.classList.add("icons");
       i.setAttribute("id", e.id);
       i.addEventListener("click", function () {
-        console.log(e.id);
         fetch("http://localhost:5678/api/works/" + e.id, {
           method: "DELETE",
           headers: {
@@ -231,7 +250,6 @@ function modalGallery() {
 
 /** FormModal **/
 function modalForm() {
-
   const img = document.createElement("img");
   const divimgfile = document.createElement("div");
   const inputTitle = document.createElement("input");
@@ -245,14 +263,28 @@ function modalForm() {
   const pLabelForm = document.createElement("span");
   const pScondeLabelForm = document.createElement("p");
   H2Title.textContent = "Ajout photo";
-  Object.assign(pictureForm, { id: "pictureForm", type: "file", accept: "image/*", textContent: "jpg, png : 4mo max" });
+  Object.assign(pictureForm, {
+    id: "pictureForm",
+    type: "file",
+    accept: "image/*",
+    textContent: "jpg, png : 4mo max",
+  });
   pictureForm.style.display = "none";
   labelPicture.htmlFor = "pictureForm";
-  ModalForm.append(pictureForm, divimgfile, labelTitle, inputTitle, labelCatégorie, inputCatégorie);
+  ModalForm.append(
+    pictureForm,
+    divimgfile,
+    labelTitle,
+    inputTitle,
+    labelCatégorie,
+    inputCatégorie
+  );
   divimgfile.appendChild(labelPicture);
   divimgfile.appendChild(img);
   img.setAttribute("id", "pictureAdded");
-  [ModalForm, GalleryElementModal, img].forEach(e => e.classList.add("hidden"))
+  [ModalForm, GalleryElementModal, img].forEach((e) =>
+    e.classList.add("hidden")
+  );
   labelPicture.append(iLabelForm, pLabelForm, pScondeLabelForm);
   divimgfile.classList.add("labelAddPicture");
   labelPicture.setAttribute("id", "labelAddPicture");
@@ -278,7 +310,6 @@ function modalForm() {
       inputCatégorie.appendChild(optionCatégorie);
     });
   });
-
 }
 /** Obtenir tous les travaux **/
 async function getpictures() {
@@ -308,8 +339,6 @@ function AllValueWork(categoriesId) {
 }
 AllValueWork(0);
 
-
-
 /***Ajout des button filtre*/
 function CatégoriAddDom() {
   catégorie().then((cat) => {
@@ -332,7 +361,6 @@ function selectedfilter() {
       e.preventDefault();
       AllValueWork(en.id);
       active = en.id;
-      console.log(en.id);
       classlist();
     });
   });
