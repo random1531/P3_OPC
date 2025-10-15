@@ -25,14 +25,11 @@ function changeConnectLogout() {
       localStorage.removeItem("token");
       localStorage.removeItem("status");
       window.location.href = "./index.html";
-
     });
   } else {
     textConect.addEventListener("click", function () {
-
       window.location.href = "./assets/login.html";
     })
-
   }
 }
 changeConnectLogout();
@@ -69,22 +66,17 @@ function addContentEditingMod() {
 }
 addContentEditingMod();
 
-
-
 // Vérification du formulaire
 function checkFormEmpty() {
   const inputcate = document.getElementById("categorie");
   const inputeTitle = document.getElementById("title");
-
   function checkIfOk() {
     const inputOk = inputeTitle.value != "" && inputcate.value != Number();
     btnFormConfirm.disabled = !inputOk;
   }
   inputeTitle.addEventListener("input", checkIfOk);
   inputcate.addEventListener("input", checkIfOk);
-
 }
-
 /**Fermeture de la modal**/
 function closeModal() {
   cross.addEventListener("click", function () {
@@ -98,7 +90,6 @@ function closeModal() {
     AllValueWork(0);
   });
 }
-
 function checkPictureChange() {
   const inputImage = document.getElementById("pictureForm");
   const picturechange = document.getElementById("pictureAdded");
@@ -129,7 +120,6 @@ function backTogallery() {
   });
 
 }
-
 async function SendNewWork() {
   const inputImage = document.getElementById("pictureForm");
   const picturechange = document.getElementById("pictureAdded");
@@ -163,7 +153,6 @@ async function SendNewWork() {
     modalGallery();
   }
 }
-
 /**Modal**/
 function modalOpenClose() {
   const btn = document.querySelectorAll(".fa-pen-to-square");
@@ -202,7 +191,7 @@ function modalOpenClose() {
 }
 modalOpenClose();
 
-/*GalleryModal*/
+/*Gallery de la Modal*/
 function modalGallery() {
   const modal = document.getElementById("modalsgallery");
   H2Title.textContent = "Galerie photo";
@@ -242,6 +231,7 @@ function modalGallery() {
 
 /** FormModal **/
 function modalForm() {
+
   const img = document.createElement("img");
   const divimgfile = document.createElement("div");
   const inputTitle = document.createElement("input");
@@ -290,10 +280,6 @@ function modalForm() {
   });
 
 }
-
-if (localStorage.getItem("status") === "connected") {
-
-}
 /** Obtenir tous les travaux **/
 async function getpictures() {
   const response = await fetch("http://localhost:5678/api/works");
@@ -337,7 +323,6 @@ function CatégoriAddDom() {
   });
 }
 CatégoriAddDom();
-
 
 /*Selection du filtre*/
 function selectedfilter() {
