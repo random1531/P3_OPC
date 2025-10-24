@@ -90,8 +90,8 @@ function closeModal() {
     btnFC.classList.add("visible");
     btnFormConfirm.classList.add("hidden");
     GalleryElementModal.innerHTML = "";
-    document.getElementById("ModalForm").reset();
     AllValueWork(0);
+    document.getElementById("ModalForm").reset();
   });
 }
 function checkPictureChange() {
@@ -126,7 +126,6 @@ function backTogallery() {
     H2Title.textContent = "Galerie photo";
   });
 }
-
 
 async function SendNewWork() {
   const inputImage = document.getElementById("pictureForm");
@@ -182,32 +181,32 @@ function modalOpenClose() {
       );
       H2Title.textContent = "Galerie photo";
       galleryOrmodal.appendChild(GalleryElementModal);
-      GalleryElementModal.classList.add("visibleGrid");
       GalleryElementModal.innerHTML = "";
+      GalleryElementModal.classList.add("visibleGrid");
       modalGallery();
     });
-    closeModal();
-
+    
     /** Bascule vers le formulaire */
-
+    
     btnFC.addEventListener("click", function () {
       const btnFormConfirm = document.getElementById("btnFormConfirm");
       GalleryElementModal.classList.remove("visibleGrid");
       [ModalForm, arrowBack, btnFormConfirm].forEach((e) =>
         e.classList.add("visible")
-      );
-      [ModalForm, arrowBack, btnFormConfirm].forEach((e) =>
-        e.classList.remove("hidden")
-      );
-      btnFC.classList.remove("visible");
-      H2Title.textContent = "Ajout photo";
-      GalleryElementModal.classList.add("hidden");
-      btnFC.classList.add("hidden");
-      /** Ajout d'un nouvelle élément **/
-      btnFormConfirm.addEventListener("click", SendNewWork);
-    });
-    backTogallery();
-  });
+    );
+    [ModalForm, arrowBack, btnFormConfirm].forEach((e) =>
+      e.classList.remove("hidden")
+  );
+  btnFC.classList.remove("visible");
+  H2Title.textContent = "Ajout photo";
+  GalleryElementModal.classList.add("hidden");
+  btnFC.classList.add("hidden");
+  /** Ajout d'un nouvelle élément **/
+  btnFormConfirm.addEventListener("click", SendNewWork);
+});
+backTogallery();
+});
+closeModal();
 }
 modalOpenClose();
 
@@ -311,6 +310,7 @@ function modalForm() {
     });
   });
 }
+
 /** Obtenir tous les travaux **/
 async function getpictures() {
   const response = await fetch("http://localhost:5678/api/works");
