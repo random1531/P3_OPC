@@ -14,7 +14,7 @@ btnlog.addEventListener("click", async function (e) {
     headers: { "Content-Type": "application/json" },
   });
   const log = await response.json();
-  console.log(log.status);
+
   if (response.status === 200) {
     localStorage.setItem("token", log.token);
     localStorage.setItem("status", "connected");

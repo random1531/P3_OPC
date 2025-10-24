@@ -13,6 +13,15 @@ const ModalForm = document.getElementById("ModalForm");
 const btnFormConfirm = document.getElementById("btnFormConfirm");
 let active = 1;
 
+
+/** Obtenir tous les travaux **/
+async function getpictures() {
+  const response = await fetch("http://localhost:5678/api/works");
+  const pictures = await response.json();
+  return pictures;
+}
+
+/** Login/out **/
 function changeConnectLogout() {
   const textConect = document.getElementById("login");
   localStorage.getItem("status");
@@ -80,12 +89,8 @@ function checkFormEmpty() {
 /**Fermeture de la modal**/
 function closeModal() {
   cross.addEventListener("click", function () {
-    [modalHover, modalElement, ModalForm, arrowBack].forEach((e) =>
-      e.classList.add("hidden")
-    );
-    [modalElement, modalHover, arrowBack, btnFormConfirm].forEach((e) =>
-      e.classList.remove("visible")
-    );
+    [modalHover, modalElement, ModalForm, arrowBack].forEach((e) => e.classList.add("hidden"));
+    [modalElement, modalHover, arrowBack, btnFormConfirm].forEach((e) => e.classList.remove("visible"));
     btnFC.classList.remove("hidden");
     btnFC.classList.add("visible");
     btnFormConfirm.classList.add("hidden");
@@ -108,15 +113,11 @@ function checkPictureChange() {
     }
   });
 }
-
+/**Form => GalleryModal**/
 function backTogallery() {
   arrowBack.addEventListener("click", function () {
-    [ModalForm, arrowBack, btnFormConfirm].forEach((e) =>
-      e.classList.add("hidden")
-    );
-    [ModalForm, arrowBack, btnFormConfirm].forEach((e) =>
-      e.classList.remove("visible")
-    );
+    [ModalForm, arrowBack, btnFormConfirm].forEach((e) => e.classList.add("hidden"));
+    [ModalForm, arrowBack, btnFormConfirm].forEach((e) => e.classList.remove("visible"));
     document.getElementById("ModalForm").reset();
     GalleryElementModal.classList.remove("hidden");
     btnFC.classList.remove("hidden");
@@ -126,7 +127,9 @@ function backTogallery() {
     H2Title.textContent = "Galerie photo";
   });
 }
-
+/**
+ Envoyer new Work
+ */
 async function SendNewWork() {
   const inputImage = document.getElementById("pictureForm");
   const picturechange = document.getElementById("pictureAdded");
@@ -146,39 +149,29 @@ async function SendNewWork() {
     body: formData,
   });
   if (response.ok) {
-    [arrowBack, ModalForm, btnFormConfirm, picturechange].forEach((e) =>
-      e.classList.add("hidden")
-    );
-    [arrowBack, ModalForm, btnFormConfirm].forEach((e) =>
-      e.classList.remove("visible")
-    );
-    [formAddPic, btnFC, GalleryElementModal].forEach((e) =>
-      e.classList.remove("hidden")
-    );
+    [arrowBack, ModalForm, btnFormConfirm, picturechange].forEach((e) => e.classList.add("hidden"));
+    [arrowBack, ModalForm, btnFormConfirm].forEach((e) => e.classList.remove("visible"));
+    [formAddPic, btnFC, GalleryElementModal].forEach((e) => e.classList.remove("hidden"));
     btnFC.classList.add("visible");
     GalleryElementModal.classList.add("visibleGrid");
     picturechange.classList.remove("pictureForm");
     formAddPic.classList.add("labelAddPicture");
     GalleryElementModal.innerHTML = "";
     document.getElementById("ModalForm").reset();
-
     modalGallery();
   }
 }
+
+
 /**Modal**/
 function modalOpenClose() {
   const btn = document.querySelectorAll(".fa-pen-to-square");
-
   /**Création de la modal avec la gallery**/
   btn.forEach((e) => {
     e.addEventListener("click", function () {
       modalHover.appendChild(modalElement);
-      [cross, modalHover, modalElement].forEach((e) =>
-        e.classList.add("visible")
-      );
-      [cross, modalHover, modalElement].forEach((e) =>
-        e.classList.remove("hidden")
-      );
+      [cross, modalHover, modalElement].forEach((e) => e.classList.add("visible"));
+      [cross, modalHover, modalElement].forEach((e) => e.classList.remove("hidden"));
       H2Title.textContent = "Galerie photo";
       galleryOrmodal.appendChild(GalleryElementModal);
       GalleryElementModal.innerHTML = "";
@@ -186,8 +179,7 @@ function modalOpenClose() {
       modalGallery();
     });
     
-    /** Bascule vers le formulaire */
-    
+    /** Bascule vers le formulaire */    
     btnFC.addEventListener("click", function () {
       const btnFormConfirm = document.getElementById("btnFormConfirm");
       GalleryElementModal.classList.remove("visibleGrid");
@@ -219,11 +211,9 @@ function modalGallery() {
       const figure = document.createElement("figure");
       const img = document.createElement("img");
       const i = document.createElement("i");
-
       img.src = e.imageUrl;
       img.alt = e.title;
       i.className = "fa-solid fa-trash";
-
       figure.appendChild(i);
       figure.appendChild(img);
       modal.appendChild(figure);
@@ -247,7 +237,7 @@ function modalGallery() {
   });
 }
 
-/** FormModal **/
+/** Form de la Modal **/
 function modalForm() {
   const img = document.createElement("img");
   const divimgfile = document.createElement("div");
@@ -262,28 +252,14 @@ function modalForm() {
   const pLabelForm = document.createElement("span");
   const pScondeLabelForm = document.createElement("p");
   H2Title.textContent = "Ajout photo";
-  Object.assign(pictureForm, {
-    id: "pictureForm",
-    type: "file",
-    accept: "image/*",
-    textContent: "jpg, png : 4mo max",
-  });
+  Object.assign(pictureForm, {id: "pictureForm",type: "file", accept: "image/*",textContent: "jpg, png : 4mo max",});
   pictureForm.style.display = "none";
   labelPicture.htmlFor = "pictureForm";
-  ModalForm.append(
-    pictureForm,
-    divimgfile,
-    labelTitle,
-    inputTitle,
-    labelCatégorie,
-    inputCatégorie
-  );
+  ModalForm.append(pictureForm, divimgfile,labelTitle, inputTitle,labelCatégorie, inputCatégorie);
   divimgfile.appendChild(labelPicture);
   divimgfile.appendChild(img);
   img.setAttribute("id", "pictureAdded");
-  [ModalForm, GalleryElementModal, img].forEach((e) =>
-    e.classList.add("hidden")
-  );
+  [ModalForm, GalleryElementModal, img].forEach((e) => e.classList.add("hidden"));
   labelPicture.append(iLabelForm, pLabelForm, pScondeLabelForm);
   divimgfile.classList.add("labelAddPicture");
   labelPicture.setAttribute("id", "labelAddPicture");
@@ -311,12 +287,7 @@ function modalForm() {
   });
 }
 
-/** Obtenir tous les travaux **/
-async function getpictures() {
-  const response = await fetch("http://localhost:5678/api/works");
-  const pictures = await response.json();
-  return pictures;
-}
+
 
 /** Intégration des élément dans la gallery **/
 function AllValueWork(categoriesId) {
