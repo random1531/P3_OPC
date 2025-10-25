@@ -511,6 +511,14 @@ select {
 	color: #b9c5cc;
 }
 
+#labelAddPicture{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+}
+
 .labelAddPicture span {
 	display: flex;
 	align-items: center;
