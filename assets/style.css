@@ -313,7 +313,7 @@ footer nav ul {
 	font-weight: 500;
 	font-style: Medium;
 	font-size: 14px;
-	
+
 	line-height: 100%;
 	letter-spacing: 0%;
 }
@@ -458,23 +458,26 @@ hr {
 #ModalForm {
 	flex-direction: column;
 	gap: 15px;
+	align-items: center;
+	justify-content: center;
 }
 
+.labelForm{
+	width: 100%;
+}
 #ModalForm input,
 select {
 	display: flex;
-	width: 420px;
+	font-family: Work Sans;
+	width: 415px;
 	height: 51px;
-	top: 1011px;
-	left: 510px;
-	
 	font-weight: 400;
 	font-size: 14px;
-	line-height: 100%;
 	box-sizing: border-box;
 	border: none;
 	box-shadow: 0px 4px 14px 0px #00000017;
 	padding: 15px;
+	margin-bottom: 5px;
 }
 
 .visible {
@@ -505,7 +508,7 @@ select {
 
 .labelAddPicture i {
 	font-size: 76px;
-	color: #B9C5CC;
+	color: #b9c5cc;
 }
 
 .labelAddPicture span {
@@ -517,45 +520,44 @@ select {
 	top: 881px;
 	left: 633px;
 	border-radius: 50px;
-	background-color:#CBD6DC ;
+	background-color: #cbd6dc;
 	color: #306685;
 }
 
-.labelAddPicture p{
+.labelAddPicture p {
 	color: #444444;
 }
 
-
-.btnForm:disabled{
-	background-color: #A7A7A7;
+.btnForm:disabled {
+	background-color: #a7a7a7;
 	cursor: not-allowed;
 }
 
-#arrow{
-		position: absolute;
-		top: 15px;
-		left: 15px;
-		font-size: 24px;
-		cursor: pointer;
+#arrow {
+	position: absolute;
+	top: 15px;
+	left: 15px;
+	font-size: 24px;
+	cursor: pointer;
 }
 
-.pictureForm{	
+.pictureForm {
 	object-fit: cover;
-	max-height: 169px ;
+	max-height: 169px;
 	max-width: 130px;
 	box-sizing: border-box;
 }
 
-.fa-solid{
+.fa-solid {
 	cursor: pointer;
 }
 
-#galleryOrModal{
+#galleryOrModal {
 	overflow: hidden;
 	max-height: 70%;
 }
 
-#errorMsg{
+#errorMsg {
 	color: red;
 	display: flex;
 	align-items: center;

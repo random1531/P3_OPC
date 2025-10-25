@@ -255,6 +255,7 @@ function modalForm() {
   H2Title.textContent = "Ajout photo";
   Object.assign(pictureForm, {id: "pictureForm",type: "file", accept: "image/*",textContent: "jpg, png : 4mo max",});
   pictureForm.style.display = "none";
+  [labelTitle,labelCatégorie].forEach((e)=> e.classList.add("labelForm"))
   labelPicture.htmlFor = "pictureForm";
   ModalForm.append(pictureForm, divimgfile,labelTitle, inputTitle,labelCatégorie, inputCatégorie);
   divimgfile.appendChild(labelPicture);
