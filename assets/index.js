@@ -99,6 +99,8 @@ function closeModal() {
     document.getElementById("ModalForm").reset();
   });
 }
+
+//*Changement de l'image*//
 function checkPictureChange() {
   const inputImage = document.getElementById("pictureForm");
   const picturechange = document.getElementById("pictureAdded");
@@ -113,6 +115,7 @@ function checkPictureChange() {
     }
   });
 }
+
 /**Form => GalleryModal**/
 function backTogallery() {
   arrowBack.addEventListener("click", function () {
@@ -127,9 +130,7 @@ function backTogallery() {
     H2Title.textContent = "Galerie photo";
   });
 }
-/**
- Envoyer new Work
- */
+/**Envoyer new Work**/
 async function SendNewWork() {
   const inputImage = document.getElementById("pictureForm");
   const picturechange = document.getElementById("pictureAdded");
@@ -163,7 +164,7 @@ async function SendNewWork() {
 }
 
 
-/**Modal**/
+/**Modal function**/
 function modalOpenClose() {
   const btn = document.querySelectorAll(".fa-pen-to-square");
   /**Création de la modal avec la gallery**/
@@ -310,6 +311,9 @@ function AllValueWork(categoriesId) {
 }
 AllValueWork(0);
 
+
+
+///*** ***/
 /***Ajout des button filtre*/
 function CatégoriAddDom() {
   catégorie().then((cat) => {

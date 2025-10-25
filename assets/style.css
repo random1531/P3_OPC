@@ -345,6 +345,9 @@ footer nav ul {
 	height: 59px;
 	background-color: black;
 	color: white;
+	left: 0;
+	top: 0;
+	width: 100%;
 }
 
 .headerEdit div {
